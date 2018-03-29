@@ -3,12 +3,16 @@ package yaypixels;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 
-public class Canvas extends JPanel implements MouseListener, MouseMotionListener {
+import yaypixels.Toolbar.DataHandler;
+
+public class Canvas extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 	int pixelSize = 8;
 	private int mouseX = -1;
 	private int mouseY = -1;
@@ -26,6 +30,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		isPainted = new boolean[Window.frameWidth / pixelSize][Window.frameHeight / pixelSize];
 		addMouseListener(this);
 		addMouseMotionListener(this);
+		addKeyListener(this);
+		setFocusable(true);
 	}
 
 	protected void paintComponent(Graphics g) {
@@ -69,7 +75,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
+	public void mouseMoved(MouseEvent e) {	//Creates fill cursor when mouse hovers over pixel
 		Point p = e.getPoint();
 		if (p.x >= 0 && p.y >= 0) {
 			mouseX = p.x / pixelSize;
@@ -88,28 +94,31 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 			repaint();
 		}
 	}
-
+	
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+	public void keyReleased(KeyEvent e) {
+		if (e.getKeyChar() == 'b' || e.getKeyChar() == 'B') DataHandler.setTool('b');
+		if (e.getKeyChar() == 'e' || e.getKeyChar() == 'E') DataHandler.setTool('e');
+		if (e.getKeyChar() == 'f' || e.getKeyChar() == 'F') DataHandler.setTool('f');
 	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+	public void mouseEntered(MouseEvent e) {}
 
+	@Override
+	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void keyPressed(KeyEvent e) {	
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+	public void keyTyped(KeyEvent e) {
 	}
 }

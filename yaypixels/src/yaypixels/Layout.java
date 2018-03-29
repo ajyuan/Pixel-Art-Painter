@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import yaypixels.Toolbar.Toolbar;
+
 public class Layout extends JPanel{
 	public Layout() {
 		setLayout(new BorderLayout());
