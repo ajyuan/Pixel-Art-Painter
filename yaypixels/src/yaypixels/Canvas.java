@@ -19,13 +19,12 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	private Color dPColor1 = new Color(220, 220, 220);
 	private Color dPColor2 = new Color(180, 180, 180);
 	private Color mouseOverColor = new Color(120, 120, 120);
-	
 
 	private Color[][] colorArray; // tracks current color of each pixel
 	private boolean[][] isPainted;
 
 	Canvas() {
-		setBackground(new Color (40,40,40));
+		setBackground(new Color(40, 40, 40));
 		colorArray = new Color[Window.frameWidth / pixelSize][Window.frameHeight / pixelSize];
 		isPainted = new boolean[Window.frameWidth / pixelSize][Window.frameHeight / pixelSize];
 		addMouseListener(this);
@@ -60,26 +59,40 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		else
 			colorArray[i][k] = dPColor2;
 	}
-	
+
 	private void updateCursor(Point p) {
 		mouseX = p.x / pixelSize;
 		mouseY = p.y / pixelSize;
 		this.setToolTipText(mouseX + "," + mouseY);
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		Point p = e.getPoint();
+		if (p.x >= 0 && p.y >= 0) {
+			ToolHandler.update(colorArray, isPainted);
+			ToolHandler.toolClicked(p.x/pixelSize, p.y/pixelSize);
+			colorArray = ToolHandler.getColorArray();
+			isPainted = ToolHandler.getIsPainted();
+			repaint();
+		}
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		Point p = e.getPoint();
 		if (p.x >= 0 && p.y >= 0) {
+			ToolHandler.update(colorArray, isPainted);
+			ToolHandler.toolClicked(p.x/pixelSize, p.y/pixelSize);
+			colorArray = ToolHandler.getColorArray();
+			isPainted = ToolHandler.getIsPainted();
 			updateCursor(p);
-			isPainted[p.x / pixelSize][p.y / pixelSize] = true;
-			colorArray[p.x / pixelSize][p.y / pixelSize] = ToolHandler.getCurrentColor();
 			repaint();
 		}
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {	//Creates fill cursor when mouse hovers over pixel
+	public void mouseMoved(MouseEvent e) { // Creates fill cursor when mouse hovers over pixel
 		Point p = e.getPoint();
 		if (p.x >= 0 && p.y >= 0) {
 			updateCursor(p);
@@ -87,38 +100,36 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		}
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		Point p = e.getPoint();
-		if (p.x >= 0 && p.y >= 0) {
-			isPainted[p.x / pixelSize][p.y / pixelSize] = true;
-			colorArray[p.x / pixelSize][p.y / pixelSize] = ToolHandler.getCurrentColor();
-			repaint();
-		}
-	}
-	
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyChar() == 'b' || e.getKeyChar() == 'B') ToolHandler.setTool('b');
-		if (e.getKeyChar() == 'e' || e.getKeyChar() == 'E') ToolHandler.setTool('e');
-		if (e.getKeyChar() == 'f' || e.getKeyChar() == 'F') ToolHandler.setTool('f');
-		if (e.getKeyChar() == 'i' || e.getKeyChar() == 'I') ToolHandler.setTool('i');
+		if (e.getKeyChar() == 'b' || e.getKeyChar() == 'B')
+			ToolHandler.setTool('b');
+		if (e.getKeyChar() == 'e' || e.getKeyChar() == 'E')
+			ToolHandler.setTool('e');
+		if (e.getKeyChar() == 'f' || e.getKeyChar() == 'F')
+			ToolHandler.setTool('f');
+		if (e.getKeyChar() == 'i' || e.getKeyChar() == 'I')
+			ToolHandler.setTool('i');
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {
+	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {
+	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {}
+	public void mousePressed(MouseEvent e) {
+	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {}
+	public void mouseReleased(MouseEvent e) {
+	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {	
+	public void keyPressed(KeyEvent e) {
 	}
 
 	@Override
