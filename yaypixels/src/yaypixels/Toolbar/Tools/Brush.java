@@ -5,27 +5,24 @@ import java.awt.event.MouseEvent;
 
 public class Brush extends Tool{
 
-	@Override
-	Color[][] MDColor(MouseEvent e, Color[][] colorArray, boolean[][] isPainted) {
-		// TODO Auto-generated method stub
+	static Color[][] MDColor(MouseEvent e, Color[][] colorArray, boolean[][] isPainted) {
+		update(colorArray, isPainted);
 		return null;
 	}
 
-	@Override
-	Color[][] MDisPainted(MouseEvent e, Color[][] colorArray, boolean[][] isPainted) {
-		// TODO Auto-generated method stub
+	
+	static Color[][] MDisPainted(MouseEvent e, Color[][] colorArray, boolean[][] isPainted) {
+		update(colorArray, isPainted);
 		return null;
 	}
 
-	@Override
-	Color[][] MCColor(MouseEvent e, Color[][] colorArray, boolean[][] isPainted) {
-		// TODO Auto-generated method stub
+	static Color[][] MCColor(MouseEvent e, Color[][] colorArray, boolean[][] isPainted) {
+		update(colorArray, isPainted);
 		return null;
 	}
 
-	@Override
-	Color[][] MCisPainted(MouseEvent e, Color[][] colorArray, boolean[][] isPainted) {
-		// TODO Auto-generated method stub
+	static Color[][] MCisPainted(MouseEvent e, Color[][] colorArray, boolean[][] isPainted) {
+		update(colorArray, isPainted);
 		return null;
 	}
 
