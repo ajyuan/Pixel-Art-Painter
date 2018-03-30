@@ -10,16 +10,16 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
 
-import yaypixels.Toolbar.DataHandler;
+import yaypixels.Toolbar.Tools.ToolHandler;
 
 public class Canvas extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 	int pixelSize = 8;
 	private int mouseX = -1;
 	private int mouseY = -1;
-	Color dPColor1 = new Color(220, 220, 220);
-	Color dPColor2 = new Color(180, 180, 180);
-	Color mouseOverColor = new Color(120, 120, 120);
-	Color currentColor = Color.BLACK;
+	private Color dPColor1 = new Color(220, 220, 220);
+	private Color dPColor2 = new Color(180, 180, 180);
+	private Color mouseOverColor = new Color(120, 120, 120);
+	
 
 	private Color[][] colorArray; // tracks current color of each pixel
 	private boolean[][] isPainted;
@@ -60,16 +60,20 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		else
 			colorArray[i][k] = dPColor2;
 	}
+	
+	private void updateCursor(Point p) {
+		mouseX = p.x / pixelSize;
+		mouseY = p.y / pixelSize;
+		this.setToolTipText(mouseX + "," + mouseY);
+	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		Point p = e.getPoint();
 		if (p.x >= 0 && p.y >= 0) {
-			mouseX = p.x / pixelSize;
-			mouseY = p.y / pixelSize;
-			this.setToolTipText(mouseX + "," + mouseY);
+			updateCursor(p);
 			isPainted[p.x / pixelSize][p.y / pixelSize] = true;
-			colorArray[p.x / pixelSize][p.y / pixelSize] = currentColor;
+			colorArray[p.x / pixelSize][p.y / pixelSize] = ToolHandler.getCurrentColor();
 			repaint();
 		}
 	}
@@ -78,9 +82,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	public void mouseMoved(MouseEvent e) {	//Creates fill cursor when mouse hovers over pixel
 		Point p = e.getPoint();
 		if (p.x >= 0 && p.y >= 0) {
-			mouseX = p.x / pixelSize;
-			mouseY = p.y / pixelSize;
-			this.setToolTipText(mouseX + "," + mouseY);
+			updateCursor(p);
 			repaint();
 		}
 	}
@@ -90,16 +92,17 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		Point p = e.getPoint();
 		if (p.x >= 0 && p.y >= 0) {
 			isPainted[p.x / pixelSize][p.y / pixelSize] = true;
-			colorArray[p.x / pixelSize][p.y / pixelSize] = currentColor;
+			colorArray[p.x / pixelSize][p.y / pixelSize] = ToolHandler.getCurrentColor();
 			repaint();
 		}
 	}
 	
 	@Override
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyChar() == 'b' || e.getKeyChar() == 'B') DataHandler.setTool('b');
-		if (e.getKeyChar() == 'e' || e.getKeyChar() == 'E') DataHandler.setTool('e');
-		if (e.getKeyChar() == 'f' || e.getKeyChar() == 'F') DataHandler.setTool('f');
+		if (e.getKeyChar() == 'b' || e.getKeyChar() == 'B') ToolHandler.setTool('b');
+		if (e.getKeyChar() == 'e' || e.getKeyChar() == 'E') ToolHandler.setTool('e');
+		if (e.getKeyChar() == 'f' || e.getKeyChar() == 'F') ToolHandler.setTool('f');
+		if (e.getKeyChar() == 'i' || e.getKeyChar() == 'I') ToolHandler.setTool('i');
 	}
 
 	@Override
