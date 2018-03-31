@@ -107,6 +107,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 			ToolHandler.setTool('i');
 	}
 
+
 	@Override
 	public void mouseEntered(MouseEvent e) {
 	}
