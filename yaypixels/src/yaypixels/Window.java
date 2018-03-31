@@ -21,6 +21,7 @@ public class Window extends JFrame{
 		setBackground(new Color(40,40,40));
 		setSize(frameWidth, frameHeight);
 		add(new Layout());
+		setFocusable(false);
 		setVisible(true);
 	}
 }

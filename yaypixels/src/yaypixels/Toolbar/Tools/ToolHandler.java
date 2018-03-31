@@ -1,4 +1,4 @@
-//Tracks the current tool and runs the appropriate methods
+//Tracks the current tool and mouse information and runs the appropriate methods. 
 
 package yaypixels.Toolbar.Tools;
 
@@ -19,20 +19,24 @@ public class ToolHandler {
 	private static boolean[][]isPainted;
 	private static int pixelSize = 8;
 	
+	private static int mouseX = -1;
+	private static int mouseY = -1;
+	private static int cursorSize = 1;
+	
 	//Methods to be run when mouse is dragged/clicked -----------------
-	public static void toolClicked(int x, int y) {
-		if (currentTool == 'b') Brush.mouseClicked(x, y);
-		else if (currentTool == 'e') Eraser.mouseClicked(x, y);
+	public static void toolClicked() {
+		if (currentTool == 'b') Brush.mouseClicked(mouseX, mouseY);
+		else if (currentTool == 'e') Eraser.mouseClicked(mouseX, mouseY);
 	}
-	public static void toolDragged(int x, int y) {
-		if (currentTool == 'b') Brush.mouseClicked(x, y);
-		else if (currentTool == 'e') Eraser.mouseClicked(x, y);
+	public static void toolDragged() {
+		if (currentTool == 'b') Brush.mouseClicked(mouseX, mouseY);
+		else if (currentTool == 'e') Eraser.mouseClicked(mouseX, mouseY);
 	}
 	
 	public static Color[][] getColorArray() { return colorArray; }
 	public static boolean[][]getIsPainted() { return isPainted; }
 	
-	public static void update(Color[][]inputColor, boolean[][]inputPainted) {
+	public static void updateArrays(Color[][]inputColor, boolean[][]inputPainted) {
 		colorArray = inputColor;
 		isPainted = inputPainted;
 	}
@@ -55,5 +59,16 @@ public class ToolHandler {
 	
 	public static int getPixelSize() {
 		return pixelSize;
+	}
+	
+	public static void updateCursor(int x, int y) {
+		mouseX = x;
+		mouseY = y;
+	}
+	public static int getMouseX() {
+		return mouseX;
+	}
+	public static int getMouseY() {
+		return mouseY;
 	}
 }

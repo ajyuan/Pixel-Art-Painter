@@ -13,8 +13,6 @@ import yaypixels.Toolbar.Tools.ToolHandler;
 
 public class Canvas extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 	int pixelSize = ToolHandler.getPixelSize();
-	private int mouseX = -1;
-	private int mouseY = -1;
 	private Color dPColor1 = new Color(220, 220, 220);
 	private Color dPColor2 = new Color(180, 180, 180);
 	private Color mouseOverColor = new Color(120, 120, 120);
@@ -40,7 +38,7 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 				int kp = k / pixelSize;
 				colorAssigner(ip, kp);
 				g.setColor(colorArray[ip][kp]);
-				if (ip == mouseX && kp == mouseY)
+				if (ip == ToolHandler.getMouseX() && kp == ToolHandler.getMouseY())
 					g.setColor(mouseOverColor);
 				g.fillRect(i, k, pixelSize, pixelSize);
 			}
@@ -56,17 +54,16 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	}
 
 	private void updateCursor(Point p) {
-		mouseX = p.x / pixelSize;
-		mouseY = p.y / pixelSize;
-		this.setToolTipText(mouseX + "," + mouseY);
+		ToolHandler.updateCursor(p.x/pixelSize, p.y/pixelSize);
+		this.setToolTipText(ToolHandler.getMouseX() + "," + ToolHandler.getMouseY());
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Point p = e.getPoint();
 		if (p.x >= 0 && p.y >= 0) {
-			ToolHandler.update(colorArray, isPainted);
-			ToolHandler.toolClicked(p.x/pixelSize, p.y/pixelSize);
+			ToolHandler.updateArrays(colorArray, isPainted);
+			ToolHandler.toolClicked();
 			colorArray = ToolHandler.getColorArray();
 			isPainted = ToolHandler.getIsPainted();
 			repaint();
@@ -77,8 +74,8 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 	public void mouseDragged(MouseEvent e) {
 		Point p = e.getPoint();
 		if (p.x >= 0 && p.y >= 0) {
-			ToolHandler.update(colorArray, isPainted);
-			ToolHandler.toolClicked(p.x/pixelSize, p.y/pixelSize);
+			ToolHandler.updateArrays(colorArray, isPainted);
+			ToolHandler.toolDragged();
 			colorArray = ToolHandler.getColorArray();
 			isPainted = ToolHandler.getIsPainted();
 			updateCursor(p);
