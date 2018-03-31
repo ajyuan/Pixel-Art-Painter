@@ -1,4 +1,4 @@
-//A class for transfering info between canvas and UI components
+//Tracks the current tool and runs the appropriate methods
 
 package yaypixels.Toolbar.Tools;
 
@@ -17,6 +17,7 @@ public class ToolHandler {
 	private static Color currentColor = Color.BLACK;
 	private static Color[][]colorArray;
 	private static boolean[][]isPainted;
+	private static int pixelSize = 8;
 	
 	//Methods to be run when mouse is dragged/clicked -----------------
 	public static void toolClicked(int x, int y) {
@@ -30,6 +31,11 @@ public class ToolHandler {
 	
 	public static Color[][] getColorArray() { return colorArray; }
 	public static boolean[][]getIsPainted() { return isPainted; }
+	
+	public static void update(Color[][]inputColor, boolean[][]inputPainted) {
+		colorArray = inputColor;
+		isPainted = inputPainted;
+	}
 	// ---------------------------------------------------------------
 	
 	public static void setTool(char tool) {
@@ -47,8 +53,7 @@ public class ToolHandler {
 		return currentColor;
 	}	
 	
-	public static void update(Color[][]inputColor, boolean[][]inputPainted) {
-		colorArray = inputColor;
-		isPainted = inputPainted;
+	public static int getPixelSize() {
+		return pixelSize;
 	}
 }

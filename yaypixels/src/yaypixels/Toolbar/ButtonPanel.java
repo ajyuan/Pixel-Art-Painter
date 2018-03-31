@@ -1,20 +1,55 @@
 package yaypixels.Toolbar;
 
 import java.awt.Color;
-import java.awt.GridBagLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import yaypixels.Window;
+import yaypixels.Toolbar.Tools.ToolHandler;
 
 public class ButtonPanel extends JPanel{
-	private final int buttonSize = 45;
+	private Color buttonColor = (new Color(30,30,30));
 	
 	ButtonPanel() {
-		setSize(60,buttonSize+buttonSize/7);
+		setSize(60,400);
 		setBackground(new Color(40,40,40));
-		setLayout(new GridBagLayout());
+		setLayout(new GridLayout(5,1));
+		setFocusable(false);
 		
+		JButton Brush = new JButton("Br");
+		JButton Eraser = new JButton("Er");
+		JButton Bucket = new JButton("Bu");
 		
+		Brush.setPreferredSize(new Dimension(60,60));
+		Eraser.setPreferredSize(new Dimension(60,60));
+		Bucket.setPreferredSize(new Dimension(60,60));
+		
+		Brush.setBackground(buttonColor);
+		Brush.setForeground(Color.WHITE);
+		Eraser.setBackground(buttonColor);
+		Eraser.setForeground(Color.WHITE);
+		Bucket.setBackground(buttonColor);
+		Bucket.setForeground(Color.WHITE);
+		
+		add(Brush);
+		add(Eraser);
+		add(Bucket);
+		
+		Brush.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ToolHandler.setTool('b');
+			}
+		});
+		Eraser.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ToolHandler.setTool('e');
+			}
+		});
 	}
 }

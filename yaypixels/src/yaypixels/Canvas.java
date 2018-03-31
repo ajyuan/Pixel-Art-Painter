@@ -9,11 +9,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JPanel;
-
 import yaypixels.Toolbar.Tools.ToolHandler;
 
 public class Canvas extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
-	int pixelSize = 8;
+	int pixelSize = ToolHandler.getPixelSize();
 	private int mouseX = -1;
 	private int mouseY = -1;
 	private Color dPColor1 = new Color(220, 220, 220);
@@ -50,14 +49,10 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
 	private void colorAssigner(int i, int k) {
 		if (!isPainted[i][k])
-			defaultColorAssigner(i, k);
-	}
-
-	private void defaultColorAssigner(int i, int k) {
-		if ((i + k) % 2 == 0)
-			colorArray[i][k] = dPColor1;
-		else
-			colorArray[i][k] = dPColor2;
+			if ((i + k) % 2 == 0)
+				colorArray[i][k] = dPColor1;
+			else
+				colorArray[i][k] = dPColor2;
 	}
 
 	private void updateCursor(Point p) {
