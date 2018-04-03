@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 public class Window extends JFrame{
 	
 	public static final int frameWidth = 1500;
-	public static final int frameHeight = 900;
+	public static final int frameHeight = 800;
 	
 	public static void main(String [] args) {
 		new Window();

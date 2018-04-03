@@ -9,7 +9,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import yaypixels.Toolbar.RightBar;
+import yaypixels.RightBar.RightBar;
 import yaypixels.Toolbar.Toolbar;
 
 public class Layout extends JPanel{
@@ -19,13 +19,13 @@ public class Layout extends JPanel{
 		setFocusable(false);
 		
 		Toolbar TB = new Toolbar();
-		//RightBar RB = new RightBar();
+		RightBar RB = new RightBar();
 		
-		TB.setPreferredSize(new Dimension(60,Window.frameHeight));
-		//RB.setPreferredSize(new Dimension(200, Window.frameHeight));
+		TB.setPreferredSize(new Dimension(Toolbar.width,Window.frameHeight));
+		RB.setPreferredSize(new Dimension(RightBar.width, Window.frameHeight));
 		
 		add(TB, BorderLayout.WEST);
 		add(new Canvas(), BorderLayout.CENTER);
-		//add(RB, BorderLayout.EAST);
+		add(RB, BorderLayout.EAST);
 	}
 }

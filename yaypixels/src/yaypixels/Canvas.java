@@ -32,20 +32,29 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		if (pixelSize != ToolHandler.getPixelSize())
+			reinitialize();
 		for (int k = 0; k < this.getHeight() - (this.getHeight() % pixelSize); k += pixelSize) {
 			for (int i = 0; i < this.getWidth() - (this.getWidth() % pixelSize); i += pixelSize) {
 				int ip = i / pixelSize;
 				int kp = k / pixelSize;
 				colorAssigner(ip, kp);
 				g.setColor(colorArray[ip][kp]);
-				if (ip == ToolHandler.getMouseX() && kp == ToolHandler.getMouseY())
-					g.setColor(mouseOverColor);
+				if (ip == ToolHandler.getMouseX() && kp == ToolHandler.getMouseY()) {
+					for (int x = ToolHandler.getMouseX(); x > ToolHandler.getMouseX()
+							- ToolHandler.getBrushSize(); x--) {
+						for (int y = ToolHandler.getMouseY(); y > ToolHandler.getMouseY()
+								- ToolHandler.getBrushSize(); y--) {
+							g.setColor(mouseOverColor);
+						}
+					}
+				}
 				g.fillRect(i, k, pixelSize, pixelSize);
 			}
 		}
 	}
 
-	private void colorAssigner(int i, int k) {
+	private void colorAssigner(int i, int k) { // sets pixels to default checker pattern if it isnt painted
 		if (!isPainted[i][k])
 			if ((i + k) % 2 == 0)
 				colorArray[i][k] = dPColor1;
@@ -53,11 +62,17 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 				colorArray[i][k] = dPColor2;
 	}
 
-	private void updateCursor(Point p) {
-		ToolHandler.updateCursor(p.x/pixelSize, p.y/pixelSize);
+	private void updateCursor(Point p) { // updates Toolhandler with current mouse position
+		ToolHandler.updateCursor(p.x / pixelSize, p.y / pixelSize);
 		this.setToolTipText(ToolHandler.getMouseX() + "," + ToolHandler.getMouseY());
 	}
-	
+
+	private void reinitialize() {
+		pixelSize = ToolHandler.getPixelSize();
+		colorArray = new Color[Window.frameWidth / pixelSize][Window.frameHeight / pixelSize];
+		isPainted = new boolean[Window.frameWidth / pixelSize][Window.frameHeight / pixelSize];
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Point p = e.getPoint();
@@ -103,7 +118,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 		if (e.getKeyChar() == 'i' || e.getKeyChar() == 'I')
 			ToolHandler.setTool('i');
 	}
-
 
 	@Override
 	public void mouseEntered(MouseEvent e) {

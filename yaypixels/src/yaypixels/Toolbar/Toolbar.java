@@ -7,9 +7,10 @@ import yaypixels.Window;
 
 public class Toolbar extends JPanel{
 	
+	public static final int width = 60;
+	
 	public Toolbar(){
-		setSize(60,Window.frameHeight);
-		setBackground(new Color(40,40,40));
+		setBackground(new Color(30,30,30));
 		setLayout(new BorderLayout());
 		setFocusable(false);
 		

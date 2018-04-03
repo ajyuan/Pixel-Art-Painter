@@ -21,16 +21,18 @@ public class ToolHandler {
 	
 	private static int mouseX = -1;
 	private static int mouseY = -1;
-	private static int cursorSize = 1;
+	private static int brushSize = 1;
 	
 	//Methods to be run when mouse is dragged/clicked -----------------
 	public static void toolClicked() {
 		if (currentTool == 'b') Brush.mouseClicked(mouseX, mouseY);
 		else if (currentTool == 'e') Eraser.mouseClicked(mouseX, mouseY);
+		else if (currentTool == 'i') Eyedropper.mouseClicked(mouseX, mouseY);
 	}
 	public static void toolDragged() {
 		if (currentTool == 'b') Brush.mouseClicked(mouseX, mouseY);
 		else if (currentTool == 'e') Eraser.mouseClicked(mouseX, mouseY);
+		else if (currentTool == 'i') Eyedropper.mouseDragged(mouseX, mouseY);
 	}
 	
 	public static Color[][] getColorArray() { return colorArray; }
@@ -59,6 +61,18 @@ public class ToolHandler {
 	
 	public static int getPixelSize() {
 		return pixelSize;
+	}
+	
+	public static void setPixelSize(int i) {
+		pixelSize = i;
+	}
+	
+	public static int getBrushSize() {
+		return brushSize;
+	}
+	
+	public static void setBrushSize(int i) {
+		brushSize = i;
 	}
 	
 	public static void updateCursor(int x, int y) {
