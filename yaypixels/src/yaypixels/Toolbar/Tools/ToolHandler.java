@@ -25,13 +25,13 @@ public class ToolHandler {
 	
 	//Methods to be run when mouse is dragged/clicked -----------------
 	public static void toolClicked() {
-		if (currentTool == 'b') Brush.mouseClicked(mouseX, mouseY);
-		else if (currentTool == 'e') Eraser.mouseClicked(mouseX, mouseY);
+		if (currentTool == 'b') Brush.mouseClicked(mouseX, mouseY, brushSize);
+		else if (currentTool == 'e') Eraser.mouseClicked(mouseX, mouseY, brushSize);
 		else if (currentTool == 'i') Eyedropper.mouseClicked(mouseX, mouseY);
 	}
 	public static void toolDragged() {
-		if (currentTool == 'b') Brush.mouseClicked(mouseX, mouseY);
-		else if (currentTool == 'e') Eraser.mouseClicked(mouseX, mouseY);
+		if (currentTool == 'b') Brush.mouseClicked(mouseX, mouseY, brushSize);
+		else if (currentTool == 'e') Eraser.mouseClicked(mouseX, mouseY, brushSize);
 		else if (currentTool == 'i') Eyedropper.mouseDragged(mouseX, mouseY);
 	}
 	

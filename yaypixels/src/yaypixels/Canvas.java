@@ -40,15 +40,13 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 				int kp = k / pixelSize;
 				colorAssigner(ip, kp);
 				g.setColor(colorArray[ip][kp]);
-				if (ip == ToolHandler.getMouseX() && kp == ToolHandler.getMouseY()) {
-					for (int x = ToolHandler.getMouseX(); x > ToolHandler.getMouseX()
-							- ToolHandler.getBrushSize(); x--) {
-						for (int y = ToolHandler.getMouseY(); y > ToolHandler.getMouseY()
-								- ToolHandler.getBrushSize(); y--) {
-							g.setColor(mouseOverColor);
-						}
-					}
+				
+				//Overwrites fill with mouse cursor color if brush will affect that area
+				if (ip > ToolHandler.getMouseX() - ToolHandler.getBrushSize() && ip <= ToolHandler.getMouseX() && kp > ToolHandler.getMouseY() - ToolHandler.getBrushSize() && kp <= ToolHandler.getMouseY()) {
+					g.setColor(mouseOverColor);
 				}
+				
+				//Draw the pixel after color has been determined
 				g.fillRect(i, k, pixelSize, pixelSize);
 			}
 		}
@@ -62,15 +60,34 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 				colorArray[i][k] = dPColor2;
 	}
 
+
 	private void updateCursor(Point p) { // updates Toolhandler with current mouse position
 		ToolHandler.updateCursor(p.x / pixelSize, p.y / pixelSize);
 		this.setToolTipText(ToolHandler.getMouseX() + "," + ToolHandler.getMouseY());
 	}
 
-	private void reinitialize() {
+	private void reinitialize() {	
 		pixelSize = ToolHandler.getPixelSize();
-		colorArray = new Color[Window.frameWidth / pixelSize][Window.frameHeight / pixelSize];
-		isPainted = new boolean[Window.frameWidth / pixelSize][Window.frameHeight / pixelSize];
+		Color [][] tempC = new Color[Window.frameWidth / pixelSize][Window.frameHeight / pixelSize];
+		boolean [][] tempB = new boolean[Window.frameWidth / pixelSize][Window.frameHeight / pixelSize];
+		if(tempC.length < colorArray.length) {
+			for(int i = 0; i < tempC.length; i++) {
+				for (int k = 0; k < tempC[i].length; k++) {
+					tempC[i][k] = colorArray[i][k];
+					tempB[i][k] = isPainted[i][k];
+				}
+			}
+		} else {
+			for(int i = 0; i < colorArray.length; i++) {
+				for (int k = 0; k < colorArray[i].length; k++) {
+					tempC[i][k] = colorArray[i][k];
+					tempB[i][k] = isPainted[i][k];
+				}
+			}
+		}
+		colorArray = tempC;
+		isPainted = tempB;
+		
 	}
 
 	@Override

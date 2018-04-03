@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import yaypixels.Canvas;
 import yaypixels.Toolbar.Tools.ToolHandler;
 
 public class Settings extends JPanel{
@@ -66,8 +67,10 @@ public class Settings extends JPanel{
 		PixelSizeTextField.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(Canvas.WIDTH);
 				if(Integer.parseInt(PixelSizeTextField.getText()) > 0) ToolHandler.setPixelSize(Integer.parseInt(PixelSizeTextField.getText()));
-				else System.out.println("Error: Pixelsize must be > 0");
+				else if(Integer.parseInt(PixelSizeTextField.getText()) <= 0) System.out.println("Error: Pixelsize must be > 0");
+				else System.out.println("Error: Pixelsize must be smaller than canvas size");
 			}
 		});
 	}
