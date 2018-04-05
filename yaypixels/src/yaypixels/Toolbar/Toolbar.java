@@ -3,7 +3,6 @@ package yaypixels.Toolbar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JPanel;
-import yaypixels.Window;
 
 public class Toolbar extends JPanel{
 	
