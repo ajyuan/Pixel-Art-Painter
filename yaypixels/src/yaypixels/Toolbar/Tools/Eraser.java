@@ -1,6 +1,6 @@
 package yaypixels.Toolbar.Tools;
 
-public class Eraser {
+public class Eraser implements ToolInterface{
 	
 	static void mouseClicked(int ax, int ay, int brushSize) {
 		for(int i = ax;i > ax - brushSize; i--) {

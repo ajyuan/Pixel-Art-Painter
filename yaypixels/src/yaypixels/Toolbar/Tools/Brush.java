@@ -1,6 +1,6 @@
 package yaypixels.Toolbar.Tools;
 
-public class Brush{
+public class Brush implements ToolInterface{
 
 	//Code is equivalent to mouse dragged
 	static void mouseClicked(int ax, int ay, int brushSize) {

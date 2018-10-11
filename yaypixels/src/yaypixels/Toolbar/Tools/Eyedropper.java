@@ -1,8 +1,8 @@
 //Gets color of selected pixel
 
-package yaypixels.Toolbar.Tools;
+package yaypixels.Toolbar.Tools; 
 
-public class Eyedropper {
+public class Eyedropper implements ToolInterface{
 	static void mouseClicked(int ax, int ay) {
 		if (ToolHandler.getIsPainted()[ax][ay])
 		ToolHandler.setCurrentColor(ToolHandler.getColorArray()[ax][ay]);
