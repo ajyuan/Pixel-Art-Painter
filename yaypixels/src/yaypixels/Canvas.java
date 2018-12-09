@@ -63,7 +63,6 @@ public class Canvas extends JPanel implements MouseListener, MouseMotionListener
 				colorArray[i][k] = dPColor2;
 	}
 
-	// Because ToolHandler doesn't have access to Canvas mouselisteners, this method transfers the location of mouse to ToolHandler
 	private void updateCursor(Point p) {
 		ToolHandler.updateCursor(p.x / pixelSize, p.y / pixelSize);
 		this.setToolTipText(ToolHandler.getMouseX() + "," + ToolHandler.getMouseY());
